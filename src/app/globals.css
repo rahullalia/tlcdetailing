@@ -266,6 +266,36 @@ body {
   pointer-events: none;
 }
 
+/* Content-visibility for off-screen sections - improves scroll performance */
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+/* Mobile-specific performance optimizations */
+@media (max-width: 768px) {
+  /* Disable Ken Burns on mobile for smoother scrolling */
+  .kenburns {
+    animation: none;
+    transform: scale(1.05);
+  }
+
+  /* Reduce shine animation frequency on mobile */
+  .shine::after {
+    animation-duration: 12s;
+  }
+
+  /* Disable noise texture on mobile */
+  .noise {
+    display: none;
+  }
+
+  /* Disable hero parallax transforms on mobile for smoother scrolling */
+  .hero-content {
+    transform: none !important;
+  }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

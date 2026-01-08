@@ -2,12 +2,27 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
-import { Phone, MessageCircle, MapPin, Clock, Star, ChevronDown, Play, X, Menu, Instagram, ArrowRight } from "lucide-react";
+import { Phone, MessageCircle, MapPin, Clock, Star, ChevronDown, X, Menu, Instagram, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 const PHONE_NUMBER = "(832) 466-1100";
 const PHONE_LINK = "tel:+18324661100";
 const SMS_LINK = "sms:+18324661100";
+
+// Tiny blur placeholder for lazy-loaded images (10x10 dark gradient)
+const BLUR_DATA_URL = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMCwsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABwAG/8QAIhAAAgIBBAIDAAAAAAAAAAAAAQIDBBEABQYhEjEiQVH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABsRAAICAwEAAAAAAAAAAAAAAAECABEDEiEi/9oADAMBAAIRAxEAPwCXj9C5YksNJM8cMbhY1jjRfJvfZJPQ+h1peLcVo7d5WXO9wSxWJGlEbeSoGYkgD6AHXWoVdpYAGMjUZWJ2mf/Z";
+
+// Throttle utility for scroll performance
+function throttle<T extends (...args: unknown[]) => void>(fn: T, delay: number): T {
+  let lastCall = 0;
+  return ((...args: unknown[]) => {
+    const now = Date.now();
+    if (now - lastCall >= delay) {
+      lastCall = now;
+      fn(...args);
+    }
+  }) as T;
+}
 
 // Animated counter hook
 function useCounter(end: number, duration: number = 2000, startOnView: boolean = true) {
@@ -37,8 +52,8 @@ function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = throttle(() => setIsScrolled(window.scrollY > 50), 100);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -176,23 +191,29 @@ const heroImages = [
 
 // Hero Section - Cinematic slideshow with Ken Burns effect
 function Hero() {
+  const heroRef = useRef<HTMLElement>(null);
+  const isHeroInView = useInView(heroRef, { amount: 0.1 });
+
   const { scrollY } = useScroll();
+  // Parallax is handled via CSS media query now for better performance
   const y = useTransform(scrollY, [0, 1000], [0, 300]);
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Auto-advance slideshow every 5 seconds
+  // Auto-advance slideshow only when hero is visible
   useEffect(() => {
+    if (!isHeroInView) return;
+
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroImages.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isHeroInView]);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Cinematic slideshow background */}
-      <div className="absolute inset-0">
+      <div className={`absolute inset-0 ${isHeroInView ? 'will-change-transform' : ''}`}>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
@@ -206,7 +227,7 @@ function Hero() {
               src={heroImages[currentSlide]}
               alt="TLC Detailing - Professional Car Detailing"
               fill
-              className="object-cover kenburns"
+              className={`object-cover ${isHeroInView ? 'kenburns' : ''}`}
               priority={currentSlide < 2}
             />
           </motion.div>
@@ -342,15 +363,15 @@ function Hero() {
 // Single stat card component (hooks must be at top level)
 function StatCard({ value, suffix, label, index }: { value: number; suffix: string; label: string; index: number }) {
   const isRating = suffix === "★";
-  const { count, ref } = useCounter(isRating ? 50 : value, 1500);
+  const { count, ref } = useCounter(isRating ? 50 : value, 1000);
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+      viewport={{ once: true, margin: "100px" }}
+      transition={{ duration: 0.25, delay: index * 0.02 }}
       className="glass rounded-2xl md:rounded-3xl p-4 md:p-10 text-center shine"
     >
       <div className="text-2xl sm:text-4xl md:text-6xl font-black gradient-text mb-1 md:mb-2">
@@ -372,7 +393,7 @@ function Stats() {
   ];
 
   return (
-    <section className="relative py-20 md:py-32">
+    <section className="relative py-8 md:py-32">
       <div className="max-w-7xl mx-auto px-5 md:px-8">
         <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8">
           {stats.map((stat, i) => (
@@ -380,8 +401,8 @@ function Stats() {
           ))}
         </div>
 
-        {/* Brand marquee */}
-        <div className="mt-16 overflow-hidden">
+        {/* Brand marquee - hidden on mobile to improve performance */}
+        <div className="hidden md:block mt-16 overflow-hidden">
           <div className="flex items-center gap-16 marquee whitespace-nowrap">
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex items-center gap-16">
@@ -567,13 +588,16 @@ function Gallery() {
               transition={{ duration: 0.3, delay: i * 0.03 }}
               className={`relative rounded-2xl md:rounded-3xl overflow-hidden group cursor-pointer ${item.span}`}
             >
-              {/* Real image */}
+              {/* Real image with blur placeholder */}
               <Image
                 src={item.image}
                 alt={item.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                 sizes="(max-width: 768px) 50vw, 25vw"
+                loading="lazy"
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
               />
 
               {/* Overlay */}
@@ -894,8 +918,8 @@ function MobileCTA() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsVisible(window.scrollY > 500);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = throttle(() => setIsVisible(window.scrollY > 500), 100);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
