@@ -180,9 +180,13 @@ npx vercel alias [deployment-url] tlcdetailing.vercel.app
 
 ## Deployment
 
-**Current Production URL:** https://tlcdetailing.vercel.app
+**Production URL:** <https://tlcdetailing.vercel.app>
 
-**To redeploy after changes:**
+**GitHub Repo:** <https://github.com/rahullalia/tlcdetailing>
+
+**Auto-deploy:** Pushes to `main` branch auto-deploy via Vercel
+
+**To manually redeploy:**
 ```bash
 npx vercel --prod --yes
 ```
