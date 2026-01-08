@@ -161,28 +161,66 @@ function Navigation() {
   );
 }
 
-// Hero Section - Dramatic full-screen
+// Hero images for slideshow
+const heroImages = [
+  "/gallery/car.jpeg",
+  "/gallery/RR.jpg",
+  "/gallery/bmw-convertible.jpg",
+  "/gallery/vintage.jpg",
+  "/gallery/bmw-suv.jpg",
+  "/gallery/RR_wheel.jpg",
+  "/gallery/bmw.jpg",
+  "/gallery/Bike.jpg",
+  "/gallery/vintage-2.jpg",
+];
+
+// Hero Section - Cinematic slideshow with Ken Burns effect
 function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 300]);
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Auto-advance slideshow every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background image */}
+      {/* Cinematic slideshow background */}
       <div className="absolute inset-0">
-        <Image
-          src="/gallery/car.jpeg"
-          alt="TLC Detailing - Professional Car Detailing"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/70" />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={heroImages[currentSlide]}
+              alt="TLC Detailing - Professional Car Detailing"
+              fill
+              className="object-cover kenburns"
+              priority={currentSlide < 2}
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/80" />
+
+        {/* Vignette overlay */}
+        <div className="absolute inset-0 vignette" />
       </div>
 
       {/* Background gradient orbs */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[150px]" />
         <div className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] bg-amber-400/5 rounded-full blur-[120px]" />
       </div>
@@ -262,6 +300,22 @@ function Hero() {
           </a>
         </motion.div>
       </motion.div>
+
+      {/* Slideshow progress dots */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+        {heroImages.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentSlide(i)}
+            className={`h-2 rounded-full transition-all duration-500 ${
+              i === currentSlide
+                ? "bg-amber-400 w-8"
+                : "bg-white/30 w-2 hover:bg-white/50"
+            }`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
 
       {/* Scroll indicator */}
       <motion.div
