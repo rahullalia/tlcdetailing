@@ -2,7 +2,9 @@
 
 Modern, mobile-optimized website for TLC.Detailing - Bakersfield's premier mobile car detailing service.
 
-**Live Site:** https://tlcdetailing.vercel.app
+**Live Site:** <https://tlcdetailing.vercel.app>
+
+**GitHub:** <https://github.com/rahullalia/tlcdetailing>
 
 ## Tech Stack
 
@@ -11,10 +13,11 @@ Modern, mobile-optimized website for TLC.Detailing - Bakersfield's premier mobil
 - **Tailwind CSS v4** - Styling
 - **Framer Motion** - Animations
 - **Lucide React** - Icons
-- **Vercel** - Deployment
+- **Vercel** - Deployment (auto-deploy from GitHub)
 
 ## Features
 
+- **Cinematic Ken Burns hero slideshow** - Auto-rotating images with slow zoom effect
 - Dark theme with glassmorphism design
 - Animated counters and parallax effects
 - Mobile-first responsive design
@@ -22,6 +25,7 @@ Modern, mobile-optimized website for TLC.Detailing - Bakersfield's premier mobil
 - Real Google review testimonials
 - SEO optimized with Schema.org structured data
 - One-page scrolling layout
+- GPS-tagged images for local SEO
 
 ## Getting Started
 
@@ -48,14 +52,21 @@ src/
     ├── page.tsx      # All page sections
     ├── globals.css   # Global styles, animations
     └── favicon.ico
+public/
+└── gallery/          # 9 GPS-tagged detail photos
+    ├── car.jpeg
+    ├── RR.jpg
+    ├── bmw-convertible.jpg
+    ├── vintage.jpg
+    └── ...
 ```
 
 ## Sections
 
-1. **Hero** - Full-screen with parallax, CTAs
+1. **Hero** - Cinematic Ken Burns slideshow with 9 images, progress dots
 2. **Stats** - 5.0★ rating, 315+ reviews, 5+ years
 3. **Services** - Ceramic coating, paint correction, polishing, headlight restoration
-4. **Gallery** - Work showcase (images pending)
+4. **Gallery** - Masonry grid showcasing real work
 5. **Testimonials** - Real Google reviews
 6. **About** - Meet Trevor, owner
 7. **Contact** - Hours, service area, phone
@@ -71,12 +82,23 @@ src/
 
 ## Deployment
 
-Production URL: https://tlcdetailing.vercel.app
+- **Production URL:** <https://tlcdetailing.vercel.app>
+- **GitHub Repo:** <https://github.com/rahullalia/tlcdetailing>
+- **Auto-deploy:** Pushes to `main` branch auto-deploy via Vercel
 
-To redeploy:
+To manually redeploy:
+
 ```bash
 npx vercel --prod --yes
 ```
+
+## Gallery Images
+
+All 9 images are GPS-tagged with Bakersfield, CA coordinates (35.3212°N, 119.0510°W) for local SEO:
+
+- car.jpeg, RR.jpg, RR_wheel.jpg
+- bmw.jpg, bmw-suv.jpg, bmw-convertible.jpg
+- vintage.jpg, vintage-2.jpg, Bike.jpg
 
 ## License
 

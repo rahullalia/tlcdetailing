@@ -78,13 +78,22 @@ tlcdetailing/
 │   └── app/
 │       ├── layout.tsx      # Root layout, metadata, SEO, schema.org
 │       ├── page.tsx        # Main page with all sections
-│       ├── globals.css     # Global styles, glassmorphism, animations
+│       ├── globals.css     # Global styles, animations (Ken Burns, vignette)
 │       └── favicon.ico
-├── public/                 # Static assets (images to be added)
+├── public/
+│   └── gallery/            # 9 detail photos (GPS tagged for 93311)
+│       ├── car.jpeg        # Main hero image
+│       ├── RR.jpg          # Rolls Royce
+│       ├── RR_wheel.jpg    # Wheel detail
+│       ├── bmw.jpg         # BMW
+│       ├── bmw-suv.jpg     # BMW SUV
+│       ├── bmw-convertible.jpg
+│       ├── vintage.jpg     # Vintage car
+│       ├── vintage-2.jpg   # Classic car
+│       └── Bike.jpg        # Motorcycle
 ├── package.json
 ├── tsconfig.json
 ├── next.config.ts
-├── tailwind.config.ts
 └── postcss.config.mjs
 ```
 
@@ -122,7 +131,7 @@ npx vercel alias [deployment-url] tlcdetailing.vercel.app
 | Component | Purpose |
 |-----------|---------|
 | `Navigation` | Sticky nav with mobile menu |
-| `Hero` | Full-screen hero with parallax |
+| `Hero` | Cinematic slideshow with Ken Burns effect |
 | `Stats` | Animated counter cards (5.0★, 315+, 5+ years) |
 | `Services` | Bento grid of 4 services |
 | `Gallery` | Masonry grid for work photos |
@@ -147,6 +156,8 @@ npx vercel alias [deployment-url] tlcdetailing.vercel.app
 - Gradient text (`.gradient-text`)
 - Glow effects (`.glow`, `.glow-text`)
 - Shine animation (`.shine`)
+- Ken Burns effect (`.kenburns`) - cinematic slow zoom
+- Vignette overlay (`.vignette`)
 - Noise texture overlay
 
 **Typography:**
@@ -182,8 +193,8 @@ npx vercel --prod --yes
 
 ## Pending Tasks
 
-- [ ] Add real images from client (gallery, about section, hero background)
-- [ ] Get owner (Trevor) photo/bio for About section
+- [x] Add real images from client (gallery, hero background) - DONE
+- [ ] Get owner (Trevor) photo for About section
 - [ ] Add more testimonials if available
 - [ ] Consider adding pricing section if client provides
 - [ ] Set up Google Analytics or similar tracking
@@ -211,7 +222,7 @@ npx vercel --prod --yes
 
 **Owner:** Trevor
 **Contact:** (832) 466-1100
-**Status:** Website live, pending images
+**Status:** Website live with images and slideshow
 
 ---
 
@@ -227,5 +238,19 @@ npx vercel --prod --yes
 - Set up clean subdomain: tlcdetailing.vercel.app
 - Created project documentation (CLAUDE.md, README.md)
 - Cleaned up public/ folder (removed unused default SVGs)
+
+### 2025-01-07 - Gallery Images & Hero Slideshow
+- Added 9 real detail photos from client to public/gallery/
+- GPS tagged all images with Bakersfield 93311 coordinates
+- Updated Gallery section with masonry grid of real images
+- Created cinematic Ken Burns hero slideshow:
+  - Auto-rotating every 5 seconds through all 9 photos
+  - Ken Burns effect (slow zoom) on each image
+  - Smooth 1.5s crossfade transitions
+  - Clickable progress dots
+  - Vignette overlay for depth
+- Created GitHub repo: github.com/rahullalia/tlcdetailing
+- Connected Vercel to GitHub for auto-deploy on push
+- Removed empty public/images/ folder
 
 **Last Updated:** 2025-01-07
