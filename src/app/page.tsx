@@ -212,13 +212,8 @@ function Hero() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Gradient overlay - stronger for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/90" />
-
-        {/* Center darkening for text area */}
-        <div className="absolute inset-0 bg-radial-gradient" style={{
-          background: 'radial-gradient(ellipse 80% 50% at 50% 50%, rgba(0,0,0,0.5) 0%, transparent 70%)'
-        }} />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70" />
 
         {/* Vignette overlay */}
         <div className="absolute inset-0 vignette" />
@@ -245,72 +240,67 @@ function Hero() {
         style={{ y, opacity }}
         className="relative z-10 max-w-7xl mx-auto px-5 md:px-8 text-center"
       >
-        {/* Glass backdrop for text readability */}
-        <div className="absolute inset-0 -mx-8 -my-12 rounded-3xl bg-black/20 backdrop-blur-sm" style={{ margin: '-3rem -2rem' }} />
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8"
+        >
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+          <span className="text-sm text-white/80">Bakersfield&apos;s Premier Mobile Detailing</span>
+        </motion.div>
 
-        <div className="relative">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-strong mb-8"
+        {/* Main headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-[clamp(2.5rem,8vw,7rem)] font-black leading-[0.9] tracking-tight mb-6"
+          style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 4px 40px rgba(0,0,0,0.5)' }}
+        >
+          <span className="block text-white">Protection</span>
+          <span className="block gradient-text glow-text">Perfected.</span>
+        </motion.h1>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-lg md:text-xl text-white/90 max-w-xl mx-auto mb-10"
+          style={{ textShadow: '0 2px 15px rgba(0,0,0,0.8)' }}
+        >
+          Expert ceramic coating, paint correction, polishing, and headlight restoration.
+          We come to you.
+        </motion.p>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <a
+            href={PHONE_LINK}
+            className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-amber-400 text-black font-bold text-lg overflow-hidden magnetic-btn shadow-lg shadow-amber-400/30"
           >
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-            <span className="text-sm text-white/90 font-medium">Bakersfield&apos;s Premier Mobile Detailing</span>
-          </motion.div>
+            <span className="relative z-10 flex items-center gap-3">
+              <Phone className="w-5 h-5" />
+              Call {PHONE_NUMBER}
+            </span>
+            <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+          </a>
 
-          {/* Main headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-[clamp(2.5rem,8vw,7rem)] font-black leading-[0.9] tracking-tight mb-6 drop-shadow-2xl"
-            style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5)' }}
+          <a
+            href={SMS_LINK}
+            className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-full border border-white/20 text-white font-semibold text-lg hover:bg-white/5 transition-all duration-300"
           >
-            <span className="block text-white">Protection</span>
-            <span className="block gradient-text glow-text">Perfected.</span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg md:text-xl text-white/80 max-w-xl mx-auto mb-10 font-medium"
-            style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
-          >
-            Expert ceramic coating, paint correction, polishing, and headlight restoration.
-            We come to you.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <a
-              href={PHONE_LINK}
-              className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-amber-400 text-black font-bold text-lg overflow-hidden magnetic-btn shadow-lg shadow-amber-400/25"
-            >
-              <span className="relative z-10 flex items-center gap-3">
-                <Phone className="w-5 h-5" />
-                Call {PHONE_NUMBER}
-              </span>
-              <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-            </a>
-
-            <a
-              href={SMS_LINK}
-              className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-full border border-white/30 bg-white/5 text-white font-semibold text-lg hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Text Us
-            </a>
-          </motion.div>
-        </div>
+            <MessageCircle className="w-5 h-5" />
+            Text Us
+          </a>
+        </motion.div>
       </motion.div>
 
       {/* Slideshow progress dots */}
