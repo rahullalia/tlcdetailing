@@ -257,4 +257,60 @@ npx vercel --prod --yes
 - Connected Vercel to GitHub for auto-deploy on push
 - Removed empty public/images/ folder
 
+### 2025-01-07 - Mobile Scroll Performance Fix
+
+**Problem:** ~2 second blank delay when scrolling past hero section on mobile.
+
+**Root Causes Identified:**
+
+1. Unthrottled scroll event listeners (Navigation + MobileCTA)
+2. All 9 gallery images (6.7MB) loading simultaneously
+3. Hero Ken Burns animation running when scrolled out of view
+4. Framer Motion parallax transforms on every frame
+
+**Fixes Implemented:**
+
+- Added `throttle()` utility for scroll handlers (100ms throttle)
+- Hero slideshow pauses when not visible (`useInView` hook)
+- Gallery images now use `loading="lazy"` + blur placeholders
+- Added `content-visibility: auto` CSS for off-screen sections
+- Disabled Ken Burns animation on mobile (static 1.05x scale)
+- Disabled noise texture overlay on mobile
+- Configured Next.js image optimization (AVIF/WebP formats)
+
+**Files Modified:**
+
+- `src/app/page.tsx` - Throttle, lazy loading, hero visibility
+- `src/app/globals.css` - Mobile performance CSS
+- `next.config.ts` - Image optimization config
+
+**Commit:** `358c7ba` - perf: fix mobile scroll delay with lazy loading and throttled handlers
+
+---
+
+## Performance Optimizations
+
+**Scroll Handling:**
+
+- All scroll listeners use `throttle()` with 100ms delay
+- Listeners use `{ passive: true }` for better performance
+
+**Image Loading:**
+
+- Gallery images use blur placeholders (`BLUR_DATA_URL` constant)
+- Next.js converts to AVIF/WebP automatically
+- Hero images use `priority` for first 2 slides only
+
+**Animation Optimization:**
+
+- Hero slideshow pauses when scrolled out of view
+- Ken Burns disabled on mobile via CSS media query
+- Shine animation slowed to 12s on mobile
+- `content-visibility: auto` skips rendering off-screen sections
+
+**Mobile-Specific:**
+
+- Noise texture hidden on mobile
+- Parallax transforms disabled via CSS
+
 **Last Updated:** 2025-01-07

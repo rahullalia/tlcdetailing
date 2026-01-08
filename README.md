@@ -27,6 +27,14 @@ Modern, mobile-optimized website for TLC.Detailing - Bakersfield's premier mobil
 - One-page scrolling layout
 - GPS-tagged images for local SEO
 
+## Performance Optimizations
+
+- **Throttled scroll handlers** - 100ms throttle prevents jank
+- **Lazy image loading** - Blur placeholders for instant feedback
+- **AVIF/WebP formats** - Automatic modern image compression
+- **Content-visibility CSS** - Off-screen sections skip rendering
+- **Mobile-specific optimizations** - Ken Burns disabled, noise texture hidden
+
 ## Getting Started
 
 ```bash
