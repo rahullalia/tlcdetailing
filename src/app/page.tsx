@@ -349,12 +349,12 @@ function StatCard({ value, suffix, label, index }: { value: number; suffix: stri
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="glass rounded-2xl md:rounded-3xl p-6 md:p-10 text-center shine"
+      className="glass rounded-2xl md:rounded-3xl p-4 md:p-10 text-center shine"
     >
-      <div className="text-4xl md:text-6xl font-black gradient-text mb-2">
+      <div className="text-2xl sm:text-4xl md:text-6xl font-black gradient-text mb-1 md:mb-2">
         {isRating ? (count / 10).toFixed(1) : count}{suffix}
       </div>
-      <div className="text-sm md:text-base text-white/50 uppercase tracking-wider">
+      <div className="text-xs sm:text-sm md:text-base text-white/50 uppercase tracking-wider">
         {label}
       </div>
     </motion.div>
@@ -372,7 +372,7 @@ function Stats() {
   return (
     <section className="relative py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-5 md:px-8">
-        <div className="grid grid-cols-3 gap-4 md:gap-8">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8">
           {stats.map((stat, i) => (
             <StatCard key={stat.label} value={stat.value} suffix={stat.suffix} label={stat.label} index={i} />
           ))}
