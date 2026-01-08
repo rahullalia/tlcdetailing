@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TLC.Detailing Website
+
+Modern, mobile-optimized website for TLC.Detailing - Bakersfield's premier mobile car detailing service.
+
+**Live Site:** https://tlcdetailing.vercel.app
+
+## Tech Stack
+
+- **Next.js 16** - React framework with App Router
+- **TypeScript** - Type safety
+- **Tailwind CSS v4** - Styling
+- **Framer Motion** - Animations
+- **Lucide React** - Icons
+- **Vercel** - Deployment
+
+## Features
+
+- Dark theme with glassmorphism design
+- Animated counters and parallax effects
+- Mobile-first responsive design
+- Sticky mobile CTA bar
+- Real Google review testimonials
+- SEO optimized with Schema.org structured data
+- One-page scrolling layout
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Deploy to Vercel
+npx vercel --prod --yes
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+└── app/
+    ├── layout.tsx    # Metadata, SEO, schema.org
+    ├── page.tsx      # All page sections
+    ├── globals.css   # Global styles, animations
+    └── favicon.ico
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Sections
 
-## Learn More
+1. **Hero** - Full-screen with parallax, CTAs
+2. **Stats** - 5.0★ rating, 315+ reviews, 5+ years
+3. **Services** - Ceramic coating, paint correction, polishing, headlight restoration
+4. **Gallery** - Work showcase (images pending)
+5. **Testimonials** - Real Google reviews
+6. **About** - Meet Trevor, owner
+7. **Contact** - Hours, service area, phone
 
-To learn more about Next.js, take a look at the following resources:
+## Business Info
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Business:** TLC.Detailing
+- **Owner:** Trevor
+- **Location:** Bakersfield, CA
+- **Phone:** (832) 466-1100
+- **Hours:** 7 AM - 7 PM, every day
+- **Instagram:** @tlc.detailing_661
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+Production URL: https://tlcdetailing.vercel.app
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To redeploy:
+```bash
+npx vercel --prod --yes
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+Private - RSL Media Hub client project
