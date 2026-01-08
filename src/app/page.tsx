@@ -342,15 +342,15 @@ function Hero() {
 // Single stat card component (hooks must be at top level)
 function StatCard({ value, suffix, label, index }: { value: number; suffix: string; label: string; index: number }) {
   const isRating = suffix === "★";
-  const { count, ref } = useCounter(isRating ? 50 : value, 2000);
+  const { count, ref } = useCounter(isRating ? 50 : value, 1500);
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
       className="glass rounded-2xl md:rounded-3xl p-4 md:p-10 text-center shine"
     >
       <div className="text-2xl sm:text-4xl md:text-6xl font-black gradient-text mb-1 md:mb-2">
@@ -429,9 +429,10 @@ function Services() {
       <div className="max-w-7xl mx-auto px-5 md:px-8">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4 }}
           className="mb-16"
         >
           <span className="text-amber-400 text-sm font-medium uppercase tracking-widest">Services</span>
@@ -446,10 +447,10 @@ function Services() {
           {services.map((service, i) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: i * 0.05 }}
               className={`group relative rounded-3xl overflow-hidden ${
                 service.featured ? "md:row-span-2" : ""
               }`}
@@ -531,9 +532,10 @@ function Gallery() {
       <div className="max-w-7xl mx-auto px-5 md:px-8">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4 }}
           className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6"
         >
           <div>
@@ -559,10 +561,10 @@ function Gallery() {
           {galleryItems.map((item, i) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.3, delay: i * 0.03 }}
               className={`relative rounded-2xl md:rounded-3xl overflow-hidden group cursor-pointer ${item.span}`}
             >
               {/* Real image */}
@@ -617,9 +619,10 @@ function Testimonials() {
       <div className="max-w-7xl mx-auto px-5 md:px-8">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4 }}
           className="text-center mb-16"
         >
           <span className="text-amber-400 text-sm font-medium uppercase tracking-widest">Testimonials</span>
@@ -633,10 +636,10 @@ function Testimonials() {
           {testimonials.map((testimonial, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: i * 0.05 }}
               className="glass-strong rounded-3xl p-8 min-w-[85vw] md:min-w-0 snap-center"
             >
               {/* Stars */}
@@ -685,10 +688,10 @@ function About() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
             className="relative"
           >
             <div className="aspect-[4/5] rounded-3xl overflow-hidden glass">
@@ -700,10 +703,10 @@ function About() {
 
             {/* Floating badge */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: 0.1 }}
               className="absolute -bottom-6 -right-6 md:bottom-8 md:-right-8 bg-amber-400 text-black p-6 md:p-8 rounded-2xl shadow-2xl"
             >
               <div className="text-4xl md:text-5xl font-black">5+</div>
@@ -713,10 +716,10 @@ function About() {
 
           {/* Content */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
           >
             <span className="text-amber-400 text-sm font-medium uppercase tracking-widest">About Us</span>
             <h2 className="text-4xl md:text-5xl font-black mt-4 mb-8">
@@ -772,9 +775,10 @@ function Contact() {
       <div className="max-w-7xl mx-auto px-5 md:px-8">
         {/* Big CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4 }}
           className="glass-strong rounded-[2rem] md:rounded-[3rem] p-10 md:p-16 text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6">
@@ -810,9 +814,10 @@ function Contact() {
         {/* Contact info grid */}
         <div className="grid md:grid-cols-3 gap-4 md:gap-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4 }}
             className="glass rounded-2xl p-8"
           >
             <MapPin className="w-8 h-8 text-amber-400 mb-4" />
@@ -827,10 +832,10 @@ function Contact() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4, delay: 0.05 }}
             className="glass rounded-2xl p-8"
           >
             <Clock className="w-8 h-8 text-amber-400 mb-4" />
@@ -843,10 +848,10 @@ function Contact() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="glass rounded-2xl p-8"
           >
             <Phone className="w-8 h-8 text-amber-400 mb-4" />
@@ -862,9 +867,10 @@ function Contact() {
 
         {/* Map */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4 }}
           className="mt-6 rounded-2xl md:rounded-3xl overflow-hidden h-[300px] md:h-[400px] glass"
         >
           <iframe
